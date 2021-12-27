@@ -13,7 +13,7 @@ public class Bot extends ListenerAdapter {
 
     public Bot() throws LoginException, InterruptedException {
         jda = JDABuilder.createDefault(
-                /* bot token */"OTIyNjc0MjMyMjMwNTYzOTMw.YcE5Vw.8Qo0UnZ1wKWxkn333IQBVcmqiSU")
+                /* bot token */)
                 .addEventListeners(this)
                 .build(); //creates the connection to discord and brings the bot online
         jda.awaitReady(); //starts the waiting loop
