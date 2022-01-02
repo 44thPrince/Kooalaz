@@ -12,7 +12,6 @@ The user types -attend to mark themselves present. If the user is not registered
 '''
 
 
-
 #Dependencies: Discord
 import os
 import discord
@@ -32,16 +31,23 @@ async def on_command_error(ctx, error):
 async def register(ctx, fname, lname, id, grade):
             
     await ctx.send('Is this correct? Your first name is {}, your last name is {}, your student ID is {}, and your grade level is {}th? Type -confirm or -cancel.'.format(fname, lname, id, grade))
+    user = str(ctx.message.author.id)
+
 
     @client.command(pass_context = True)
     async def confirm(ctx):
-        await ctx.send("Registered successfully.")
-        return #placeholder, send data to database
-    
+        if str(ctx.message.author.id) == user:
+            await ctx.send("Registered successfully." + " " + user)
+            return #placeholder, send data to database
+        else:
+            return
     @client.command(pass_context = True)
     async def cancel(ctx):
-        await ctx.send("Cancelled.")
-        return
+        if str(ctx.message.author.id) == user:
+            await ctx.send("Cancelled.")
+            return
+        else:
+            return
 
 @register.error
 async def example_error(ctx: commands.Context, error: commands.CommandError):
@@ -51,5 +57,10 @@ async def example_error(ctx: commands.Context, error: commands.CommandError):
 @client.command(pass_context = True)
 async def info(ctx):
     await ctx.send("Usage: -register (Your first name) (Your last name) (Your student ID) (Your grade level). Example: -register Benjamin Darby 0445062 11")
+
+@client.command(pass_context = True)
+async def attend(ctx):
+    user = str(ctx.message.author.id) #send this info to the database, tell it to update 
+    #To do: check if user is registered in database, tell user if they aren't, otherwise say it was successful. 
 
 client.run(DISCORD_TOKEN)
