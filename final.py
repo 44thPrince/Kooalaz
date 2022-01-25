@@ -96,4 +96,30 @@ async def calendar(ctx):
     except(IOError):
         await ctx.send("This club has no calendar set up!")
 
+@client.command(pass_context=True)
+async def remove(ctx, event):
+    try:
+        filename = str(ctx.message.guild.id) + "_calendar.txt"
+        file = open(filename, mode="r")
+        events = file.readlines()
+        file.close()
+
+        fixed = ""
+        for i in range(len(events)):
+            if event in events[i]:
+                events[i] = ""
+            fixed += events[i]
+
+        file = open(filename, mode="w")
+        file.write(fixed)
+        file.close()
+
+        await ctx.send("All events containing the keyword {} have been removed from the calendar.".format(event))
+    except(IOError):
+        await ctx.send("This club has no calendar set up!")
+@remove.error
+async def remove_error(ctx: commands.Context, error: commands.CommandError):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please include a keyword to search for and remove.")
+
 client.run(DISCORD_TOKEN)
