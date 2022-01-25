@@ -63,4 +63,37 @@ async def attend(ctx):
     user = str(ctx.message.author.id) #send this info to the database, tell it to update 
     #To do: check if user is registered in database, tell user if they aren't, otherwise say it was successful. 
 
+@client.command(pass_context=True)
+async def schedule(ctx, month, day, year, event):
+    try:
+        int(month)
+        int(day)
+        int(year)
+
+        filename = str(ctx.message.guild.id) + "_calendar.txt"
+        file = open(filename, mode="a")
+        file.write("Scheduled for {}/{}/{}: {} \n".format(month, day, year, event))
+        file.close()
+
+        await ctx.send("{} successfully scheduled for {}/{}/{}. \n".format(event, month, day, year))
+    except(TypeError):
+        await ctx.send("the month, day, and year should all be numbers!")
+@schedule.error
+async def schedule_error(ctx: commands.Context, error: commands.CommandError):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please enter your information in this format: \n"
+        + "-schedule <month> <day> <year> <event> - <event> must be formatted as one word!")
+
+@client.command(pass_context=True)
+async def calendar(ctx):
+    try:
+        filename = str(ctx.message.guild.id) + "_calendar.txt"
+        file = open(filename, mode="r")
+        calendar = file.read()
+        file.close()
+
+        await ctx.send(calendar)
+    except(IOError):
+        await ctx.send("This club has no calendar set up!")
+
 client.run(DISCORD_TOKEN)
