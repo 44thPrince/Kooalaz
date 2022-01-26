@@ -164,12 +164,13 @@ async def remove(ctx, event):
         await ctx.send("All events containing the keyword {} have been removed from the calendar.".format(event))
     except(IOError):
         await ctx.send("This club has no calendar set up!")
-@client.command(pass_context=True)
-async def server(ctx):
-    await ctx.send("This server's ID is {}. This ID will help you locate things in the database.".format(str(ctx.message.guild.id)))
 @remove.error
 async def remove_error(ctx: commands.Context, error: commands.CommandError):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please include a keyword to search for and remove.")
+        
+@client.command(pass_context=True)
+async def server(ctx):
+    await ctx.send("This server's ID is {}. This ID will help you locate things in the database.".format(str(ctx.message.guild.id)))
 
 client.run(DISCORD_TOKEN)
