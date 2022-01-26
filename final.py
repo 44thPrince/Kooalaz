@@ -1,53 +1,75 @@
-'''
-The plan:
-Create a channel where users can register for attendance.
-
-Commands:
-
--register:
-The user registers by calling command -register (first name) (last name) (student id) (grade level). Then the bot confirms by asking the user to type in confirm. (Bot needs to only accept this from the user registering.) Then the bot adds this information and the user's id to the database (WIP).
-
--attend:
-The user types -attend to mark themselves present. If the user is not registered, it prompts them to register.
-'''
-
-
-#Dependencies: Discord
-import os
-import discord
+#Dependencies: Discord, dotenv
+import asyncio, os
+from pathlib import Path
 from discord.ext import commands
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv("token.env")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
-#client = discord.Client()
 client = commands.Bot(command_prefix = "-")
+
+#To do: add functionality for multiple clubs and rosters.
+
+#ATTENDANCE STARTS
+
+@client.event
+#triggers on program start
+async def on_ready():
+    global rosterList
+    rosterRead = open(str(Path().absolute()) + "\\roster.txt", "w+")
+    rosterRawList = rosterRead.readlines()
+    rosterList = []
+    for i in rosterRawList:
+        string = i.strip().split('|')
+        tempArr = []
+        for j in string:
+            tempArr.append(j)
+            print(j)
+        rosterList.append(tempArr)
+    rosterRead.close()
 
 @client.event
 async def on_command_error(ctx, error):
     pass
 @client.command(pass_context = True)
 async def register(ctx, fname, lname, id, grade):
-            
+    global endMethod
+    global rosterList
+    endMethod = False
     await ctx.send('Is this correct? Your first name is {}, your last name is {}, your student ID is {}, and your grade level is {}th? Type -confirm or -cancel.'.format(fname, lname, id, grade))
     user = str(ctx.message.author.id)
-
-
+    strings = [fname, lname, id, grade, user + "\n"]
+    rosterAppend = open(str(Path().absolute()) + "\\roster.txt", "a")
     @client.command(pass_context = True)
     async def confirm(ctx):
+        global endMethod
+        global rosterList
         if str(ctx.message.author.id) == user:
-            await ctx.send("Registered successfully." + " " + user)
-            return #placeholder, send data to database
+            if not(check(user)):
+                await ctx.send("Registered successfully.")
+                rosterAppend.write('|'.join(strings))
+                rosterList.append('|'.join(strings))
+                endMethod = True
+                return #placeholder, send data to database
+            else:
+                await ctx.send("You're already registered.")
+                endMethod = True
+
         else:
             return
     @client.command(pass_context = True)
     async def cancel(ctx):
+        global endMethod
         if str(ctx.message.author.id) == user:
             await ctx.send("Cancelled.")
+            endMethod = True
             return
         else:
             return
+    if endMethod:
+        rosterAppend.close()
+        return
 
 @register.error
 async def example_error(ctx: commands.Context, error: commands.CommandError):
@@ -60,8 +82,33 @@ async def info(ctx):
 
 @client.command(pass_context = True)
 async def attend(ctx):
-    user = str(ctx.message.author.id) #send this info to the database, tell it to update 
-    #To do: check if user is registered in database, tell user if they aren't, otherwise say it was successful. 
+    global rosterList
+    attendanceRoster = open(str(Path().absolute()) + "\\attendance.txt", "a")
+    user = str(ctx.message.author.id) #send this info to the database, tell it to update
+    for userList in rosterList:
+        print (user)
+        print(userList)
+        if str(user) in userList:
+            print("Did something.")
+            temp = userList
+            temp.pop()
+            print("Did something after.")
+            await ctx.send("You have been marked as present")
+            attendanceRoster.write(" ".join(temp))
+            attendanceRoster.close()
+            return
+    await ctx.send("You are not registered yet! Do -register to register or -info to learn how to register.")
+    attendanceRoster.close()
+    return
+
+def check(user):
+    global rosterList
+    for userID in rosterList:
+        if str(user) in userID:
+            return True
+    return False
+
+#CALENDAR BEGINS
 
 @client.command(pass_context=True)
 async def schedule(ctx, month, day, year, event):
