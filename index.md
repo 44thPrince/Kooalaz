@@ -9,6 +9,8 @@ Need help on any of our discord bot's commands? This is the place for look for e
 
 Our bot's prefix is -
 
+__info__ Links to this page.
+
 __register__ This command registers you with the database so that you can record your attendance to a certain club. It takes four parameters: First name, last name, student ID, and grade.
 
 __attend__ Marks you for attendance in the club whose server this command is run in.
