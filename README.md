@@ -4,10 +4,14 @@ We do this in two parts: a discord bot and a website. Our discord bot allows gro
 
 # Help Menu:
 Need help on any of our discord bot's commands? This is the place for look for everything you need.
-Our bot's prefix is -
-__Test__ test
 
-Database:
+Our bot's prefix is -
+
+__register__ This command registers you with the database so that you can record your attendance to a certain club. It takes four parameters: First name, last name, student ID, and grade.
+
+__attend__ Marks you for attendance in the club whose server this command is run in.
+
+# Database:
 This is where you will find the link to all our data. Data is stored using __server ID's__ and not the server name. To get your Discord server's ID, run __-server__ on our bot.
 
 
