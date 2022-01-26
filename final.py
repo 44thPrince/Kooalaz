@@ -78,7 +78,7 @@ async def example_error(ctx: commands.Context, error: commands.CommandError):
 
 @client.command(pass_context = True)
 async def info(ctx):
-    await ctx.send("Usage: -register (Your first name) (Your last name) (Your student ID) (Your grade level). Example: -register Benjamin Darby 0445062 11")
+    await ctx.send("You can find information on all our commands on our website: https://44thprince.github.io/Kooalaz/")
 
 @client.command(pass_context = True)
 async def attend(ctx):
