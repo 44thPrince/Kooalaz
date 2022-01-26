@@ -14,5 +14,3 @@ __attend__ Marks you for attendance in the club whose server this command is run
 # Database:
 This is where you will find the link to all our data. Data is stored using __server ID's__ and not the server name. To get your Discord server's ID, run __-server__ on our bot.
 
-
-(note from vita: i'll make it look better/fix things when we talk ab the program tomorrow but this is the basic layout)
