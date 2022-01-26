@@ -1,37 +1,16 @@
-## Welcome to GitHub Pages
+# Kooalaz
+Kooalaz is a service made to assist student groups at TERRA. Our goal is to assist in managing the following: attendance, events, sharing club information, and gathering sponsors.
+We do this in two parts: a discord bot and a website. Our discord bot allows groups to create profiles for each student and mark their attendance through the bot commands, we plan on expanding the bot to include an event manager for each club. Our website (currently under construction) is aimed towards storing club information and goals to share with potential sponsors.
 
-You can use the [editor on GitHub](https://github.com/44thPrince/Kooalaz/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# Help Menu:
+Need help on any of our discord bot's commands? This is the place for look for everything you need.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Our bot's prefix is -
 
-### Markdown
+__register__ This command registers you with the database so that you can record your attendance to a certain club. It takes four parameters: First name, last name, student ID, and grade.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+__attend__ Marks you for attendance in the club whose server this command is run in.
 
-```markdown
-Syntax highlighted code block
+# Database:
+This is where you will find the link to all our data. Data is stored using __server ID's__ and not the server name. To get your Discord server's ID, run __-server__ on our bot.
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/44thPrince/Kooalaz/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
