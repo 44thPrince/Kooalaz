@@ -169,8 +169,35 @@ async def remove_error(ctx: commands.Context, error: commands.CommandError):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please include a keyword to search for and remove.")
         
+# CLUB INFO begins here
+        
 @client.command(pass_context=True)
 async def server(ctx):
     await ctx.send("This server's ID is {}. This ID will help you locate things in the database.".format(str(ctx.message.guild.id)))
+        
+@client.command(pass_context=True)
+async def setup(ctx, *, summary):
+    filename = str(ctx.message.guild.id) + "_summary.txt"
+    file = open(filename, mode="w")
+    file.write(summary)
+    file.close()
+
+    await ctx.send("Club summary successfully updated.")
+@setup.error
+async def setup_error(ctx: commands.Context, error: commands.CommandError):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please include a summary of the club!")
+    
+@client.command(pass_context=True)
+async def summary(ctx):
+    try:
+        filename = str(ctx.message.guild.id) + "_summary.txt"
+        file = open(filename, mode="r")
+        summary = file.read()
+        file.close()
+
+        await ctx.send(summary)
+    except(IOError):
+        await ctx.send("This club does not have a summary set up.")
 
 client.run(DISCORD_TOKEN)
