@@ -1,9 +1,5 @@
 # Kooalaz
-Kooalaz is a service made to assist student groups at TERRA. Our goal is to assist in managing the following: 
--Attendance
--Events
--Sharing club information
--Gathering sponsors
+Kooalaz is a service made to assist student groups at TERRA. Our goal is to assist in managing the following: attendance, events, sharing club information, and gathering sponsors.
 We do this in two parts: a discord bot and a website. Our discord bot allows groups to create profiles for each student and mark their attendance through the bot commands, we plan on expanding the bot to include an event manager for each club. Our website (currently under construction) is aimed towards storing club information and goals to share with potential sponsors.
 
 Help Menu:
